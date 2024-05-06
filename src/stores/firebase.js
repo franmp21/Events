@@ -2,12 +2,14 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { 
+    doc,
     query,
     where,
     getDocs,
     collection, 
     getFirestore,
-    addDoc
+    addDoc,
+    updateDoc
 } from 'firebase/firestore';
 
 
@@ -74,16 +76,24 @@ export const añadirDatos = async(tabla, datos)=>{
     }
     
 }
+export const actualizarDatos = async (tabla, idDocumento, nuevosDatos) => {
+    const referenciaDocumento = doc(db, tabla, idDocumento)
+    try {
+        await updateDoc(referenciaDocumento, nuevosDatos)
+        console.log('Datos actualizados correctamente.')
+    } catch (error) {
+        console.error(error)
+    }
+}
 export const obtenerFiltros = async()=>{
-    const filtros = [];
-    const referenciaDatos = collection(db, 'filters');
+    const filtros = []
+    const referenciaDatos = collection(db, 'filters')
     try{
         const q = await getDocs(referenciaDatos)
         q.forEach((doc) =>{
             filtros.push({id: doc.id, link: doc.data().link, tipo: doc.data().tipo})
             
         })
-        console.log(filtros)
         return filtros;
     }catch(error){
         console.log(error)
