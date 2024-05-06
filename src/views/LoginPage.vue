@@ -11,7 +11,6 @@
                 <div class="mt-5 flex justify-center">
                     <button type="submit" class=" text-white m-2 bg-blue-800 rounded-md">Submit</button>
                     <button type="button" @click="switchOption = !switchOption" class="text-white m-2 bg-blue-800 rounded md ">Registrate</button>
-                    <button type="button" class="text-blue-500 font-bold m-2 rounded-md bg-yellow-600" @click="logeoGoogle">Google</button>
                 </div>    
             </form>
             <span class="text-red-700 text-center font-bold font-serif">{{ errorMsj }}</span>
@@ -38,14 +37,13 @@
             </form>
             <span class="text-red-700 text-center font-bold font-serif">{{ errorMsj }}</span>   
         </div>
-        https://framer.com/m/ShaderGradient-Iog3.js
     
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
-import { createAccount, signIn, obtenerDatos, añadirDatos, loginGoogle } from '../stores/firebase';
+import { createAccount, signIn, obtenerDatos, añadirDatos } from '../stores/firebase';
 const router = useRouter()
 
 //variables
@@ -58,13 +56,7 @@ const username = ref('')
 
 const verificar = ()=> password.value === rep_password.value
 
-const logeoGoogle = async()=>{
-    try{
-        const credenciales = await loginGoogle()
-    }catch(error){
-        console.log(error)
-    }
-}
+
 
 const logear = async()=>{
     try{
@@ -75,7 +67,7 @@ const logear = async()=>{
         //Recojo todos los datos en localStorage
         sessionStorage.setItem('sesion', JSON.stringify(datos))
         router.push({
-            name: 'Main',
+            name: 'SeeEvents',
             params: {
                 user: username,
             }
@@ -95,7 +87,11 @@ const registrar = async()=>{
         let documento = {
             email: email.value,
             password: password.value,
-            user: username.value
+            user: username.value,
+            favourites_events: [],
+            my_events: [],
+            profile_img: '',
+            description: ''
         }
         let refDoc = await añadirDatos('users', documento)
         console.log("Document written with ID: ", refDoc.id);
@@ -111,7 +107,7 @@ const registrar = async()=>{
         
     }
     else{
-        errorMsj.value = 'contrasenas incorrectas'
+        errorMsj.value = 'contraseñas incorrectas'
         setTimeout(()=>{
             errorMsj.value=""
         }, 2000)
