@@ -1,52 +1,45 @@
+
 <template>
-
-        <div class="flex-grow flex flex-col">
-            
-            <div class="flex-grow-0 h-4/5">
-                <h1 class="text-3xl font-bold text-center p-4 text-green-900">Nuevo Evento</h1>
-                <form class="h-1/3 m-10" >
-                    <div class="flex-grow-0 h-1/4 ">
-                        <input class="bg-green-600 text-white text-center rounded-md w-full h-10" type="text" v-model="titulo" placeholder="TÍTULO">
-                    </div>
-                    <div class="mt-2 flex justify-center h-1/4 ">
-                        <textarea class="bg-green-600 text-white text-center rounded-md w-full h-30" type="text" v-model="descripcion" placeholder="DESCRIPCIÓN"/>
-                    </div>
-                    <div class="mt-2 flex justify-center h-1/5 ">
-                        <input class="bg-green-600 text-white text-center rounded-md w-full h-10" type="text" v-model="ubicacion" placeholder="UBICACIÓN">
-                    </div>  
-                    <div class="mt-2 flex justify-center h-1/5">
-                        <input type="date" class="bg-green-600 text-white text-center rounded-md w-full h-10" v-model="fecha">
-                    </div>     
-                </form>
-                <div class="h-1/3">
-                    <h2 class="text-red-500 text-3xl text-center font-bold font-mono">{{ mensaje }}</h2>
-                    <h1 class="mt-10 text-2xl font-bold font-sans text-center text-green-600">Filtros</h1>
-                        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 overflow-y-scroll h-96" >
-                            <div v-if="datosCargados" v-for="filtro in filtrosCargados" :key="filtro.id">
-                                <div @click="seleccion(filtro.tipo)" class="m-10 p-6 border rounded-md grid grid-cols-2" :class="{'bg-green-400': filtro.activo, 'bg-gray-400': !filtro.activo}">
-                                    <img class="w-10 h-auto" :src="filtro.link">
-                                    <h1 class="text-center mr-5 overflow-x-hidden">{{ filtro.tipo }}</h1>
-                                </div>
-                            </div> 
-                            <div v-else>
-                                <h1>Cargando..</h1>
+    <div class="flex-grow flex flex-col">
+        <div class="flex-grow-0 h-4/5">
+            <h1 class="text-3xl font-bold text-center p-4 text-green-900">Nuevo Evento</h1>
+            <form class="m-10">
+                <div class="flex-grow-0 flex justify-center h-1/4">
+                    <input class="bg-green-600 text-white text-center rounded-md h-10 w-4/5 mx-auto" type="text" v-model="titulo" placeholder="TÍTULO">
+                </div>
+                <div class="mt-2 flex justify-center h-1/4">
+                    <textarea class="bg-green-600 text-white text-center rounded-md h-30 w-4/5 mx-auto" type="text" v-model="descripcion" placeholder="DESCRIPCIÓN"></textarea>
+                </div>
+                <div class="mt-2 flex justify-center h-1/5">
+                    <input class="bg-green-600 text-white text-center rounded-md h-10 w-4/5 mx-auto" type="text" v-model="ubicacion" placeholder="UBICACIÓN">
+                </div>  
+                <div class="mt-2 flex justify-center h-1/5">
+                    <input type="date" class="bg-green-600 text-white text-center rounded-md h-10 w-4/5 mx-auto" v-model="fecha">
+                </div>     
+            </form>
+            <h2 class="text-red-500 text-3xl text-center font-bold font-mono">{{ mensaje }}</h2>
+            <h1 class="m-5 text-2xl font-bold font-sans text-center text-green-600">Filtros</h1>
+            <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 overflow-y-scroll h-96">
+                <div v-if="datosCargados" v-for="filtro in filtrosCargados" :key="filtro.id" class="m-3">
+                    <div @click="seleccion(filtro.tipo)" class="p-3 border rounded-md bg-gray-400" :class="{'bg-green-400': filtro.activo}">
+                        <div class="w-40 mx-auto">
+                            <div class="flex items-center justify-center">
+                                <img class="w-10 h-auto mr-2" :src="filtro.link">
+                                <h1 class="text-center m-0 overflow-x-hidden font-bold p-2" :class="{'text-green-700': filtro.activo, 'text-gray-800': !filtro.activo}">{{ filtro.tipo }}</h1>
                             </div>
-                 
-                        </div> 
+                        </div>
+                    </div>
+                </div> 
+                <div v-else>
+                    <h1>Cargando..</h1>
                 </div>
-                <div class="h-full">
-                    
-                </div>
-            </div>
-            <div class="flex-grow-0 h-1/5 flex-row mt-10">
-                <button @click="crear" class=" text-white ml-2  bg-blue-800  md:w-48 sm:w-48 h-12 float-left rounded-lg">Crear</button>
-                <button @click="resetear"  class="text-white bg-blue-950 float-right md:w-48 sm:w-24 h-12 mr-2 rounded-lg">Borrar todo</button>
-            </div>
-
-
-
+            </div> 
         </div>
-
+        <div class="flex-grow-0 h-1/5 flex-row m-2">
+            <button @click="crear" class="text-white ml-2 bg-blue-800 md:w-48 sm:w-48 h-12 float-left rounded-lg">Crear</button>
+            <button @click="resetear" class="text-white bg-blue-950 float-right md:w-48 sm:w-24 h-12 mr-2 rounded-lg">Borrar todo</button>
+        </div>
+    </div>
 </template>
 
 <script setup>

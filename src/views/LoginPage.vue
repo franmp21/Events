@@ -1,42 +1,47 @@
 <template>
-        <div v-if="switchOption" class="fixed h-screen w-full bg-black flex flex-col items-center justify-center "> 
-            <h1 class="text-center text-3xl font-bold font-serif text-blue-700 mb-10">Log in</h1>
-            <form class="w-80" @submit.prevent="logear()">
+    <div class="fixed h-screen w-full bg-gradient-to-b from-green-400 to-black flex flex-col justify-center">
+        <div class="w-full h-48">
+            <h1 class="text-8xl font-bold font-serif text-center text-blue-600">Events</h1>
+        </div>
+        <div v-if="switchOption"> 
+            <h1 class="text-center text-3xl font-bold font-serif text-black mb-10">Log in</h1>
+            <form @submit.prevent="logear()">
                 <div class="flex justify-center">
-                    <input class="bg-blue-600 text-white text-center rounded-md" type="text" v-model="email" placeholder="email">
+                    <input class="bg-green-600 text-white text-center rounded-md w-1/4 h-8" type="text" v-model="email" placeholder="email">
                 </div>
                 <div class="mt-2 flex justify-center">
-                    <input class="bg-blue-600 text-white text-center  rounded-md" type="password" v-model="password" placeholder="password">
+                    <input class="bg-green-600 text-white text-center  rounded-md w-1/4 h-8" type="password" v-model="password" placeholder="password">
                 </div>
                 <div class="mt-5 flex justify-center">
-                    <button type="submit" class=" text-white m-2 bg-blue-800 rounded-md">Submit</button>
-                    <button type="button" @click="switchOption = !switchOption" class="text-white m-2 bg-blue-800 rounded md ">Registrate</button>
+                    <button type="submit" class=" text-black mx-6 bg-yellow-400 font-bold rounded-md p-2">Submit</button>
+                    <button type="button" @click="switchOption = !switchOption" class="text-black mx-6 bg-yellow-400 font-bold  rounded-md" p-2>Registrate</button>
                 </div>    
             </form>
             <span class="text-red-700 text-center font-bold font-serif">{{ errorMsj }}</span>
         </div>
-        <div v-else class="fixed h-screen w-full bg-black flex flex-col items-center justify-center "> 
-            <h1 class="text-center text-3xl font-bold font-serif text-blue-700 mb-10">Registro</h1>
-            <form class="w-80" @submit.prevent="registrar()">
-                <div class="flex justify-center">
-                    <input class="bg-blue-600 text-white text-center rounded-md" type="text" v-model="email" placeholder="email">
+        <div v-else > 
+            <h1 class="text-center text-3xl font-bold font-serif text-black mb-10">Registro</h1>
+            <form @submit.prevent="registrar()" class="flex flex-col gap-4">
+                <div class="flex justify-center w-full">
+                    <input class="bg-green-600 text-white text-center rounded-md w-1/4 h-8" type="text" v-model="email" placeholder="email">
                 </div>
                 <div class="mt-2 flex justify-center">
-                    <input class="bg-blue-600 text-white text-center rounded-md" type="text" v-model="username" placeholder="username">
+                    <input class="bg-green-600 text-white text-center rounded-md w-1/4 h-8" type="text" v-model="username" placeholder="username">
                 </div>
                 <div class="mt-2 flex justify-center">
-                    <input class="bg-blue-600 text-white text-center  rounded-md" type="password" v-model="password" placeholder="password">
+                    <input class="bg-green-600 text-white text-center  rounded-md w-1/4 h-8" type="password" v-model="password" placeholder="password">
                 </div>
                 <div class="mt-2 flex justify-center">
-                    <input class="bg-blue-600 text-white text-center  rounded-md" type="password" v-model="rep_password" placeholder="repeat password">
+                    <input class="bg-green-600 text-white text-center  rounded-md w-1/4 h-8" type="password" v-model="rep_password" placeholder="repeat password">
                 </div>
-                <div class="mt-5 flex justify-between">
-                    <button type="submit" class=" text-white ml-20 bg-blue-800 rounded-md">Submit</button>
-                    <button type="button" @click="switchOption = !switchOption" class="text-white mr-20 bg-blue-800 rounded md ">Logeate</button>
+                <div class="mt-5 flex justify-center font-bold">
+                    <button type="submit" class=" text-black bg-yellow-400 m-5 rounded-md p-2">Submit</button>
+                    <button type="button" @click="switchOption = !switchOption" class="text-black m-5 bg-yellow-400 rounded md p-2">Logeate</button>
                 </div>      
             </form>
             <span class="text-red-700 text-center font-bold font-serif">{{ errorMsj }}</span>   
         </div>
+    </div>
     
 </template>
 
